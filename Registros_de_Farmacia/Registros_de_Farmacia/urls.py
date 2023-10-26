@@ -24,6 +24,5 @@ from django.conf import settings
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('',views.home,name='home'),
-    path('temperatura/',include('temperatura.urls')),
-    path('humedad/',include('humedad.urls')),
+    path('HumedadTemperatura/',views.registros_humedad_temperatura,name='registros'),
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

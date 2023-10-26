@@ -5,15 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Farmacia JM</title>
+    <title>COLOSAL PHARMA</title>
     <!-- Enlazar los archivos CSS de Bootstrap y Bootstrap Darkly (tema oscuro) -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/darkly/bootstrap.min.css">
     <link rel="icon" type="image/png" href="{% static 'img/icono.png' %}">
     
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body style="background-color: #e6e6e6;">
+    <nav class="navbar navbar-expand-lg " style="background-color: #00003c;">
         <!-- Logo -->
         <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/logo.png' %}" alt="Logo" style="width: 300px;"></a>
         <!-- Botón de hamburguesa para dispositivos móviles -->
@@ -36,8 +36,8 @@
         <div class="row justify-content-center">
             <div class="col-md-6 text-center">
                 <h1>Registros de Humedad y Temperatura de la Farmacia</h1>
-                <a href="{% url 'registros_humedad' %}" class="btn btn-primary btn-lg btn-block mt-3">Ver Registro de Humedad</a>
-                <a href="{% url 'registros_temperatura' %}" class="btn btn-primary btn-lg btn-block mt-3">Ver Registro de Temperatura</a>
+                <a href="{% url 'registros' %}" class="btn btn-primary btn-lg btn-block mt-3">Ver Registro de Humedad</a>
+                <a href="{% url 'registros' %}" class="btn btn-primary btn-lg btn-block mt-3">Ver Registro de Temperatura</a>
             </div>
         </div>
     </div>
