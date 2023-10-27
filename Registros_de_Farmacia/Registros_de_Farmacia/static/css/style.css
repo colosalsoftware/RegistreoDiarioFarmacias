@@ -1,0 +1,8 @@
+body {
+    
+    background-image: url('../img/fondo1.jpg');
+    background-size:cover;
+    background-attachment: fixed;
+    overflow-x: hidden;
+    color: black;
+}

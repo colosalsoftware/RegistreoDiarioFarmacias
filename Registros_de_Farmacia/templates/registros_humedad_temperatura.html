@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+	
+{% block content %}
+<div class="container mt-5">
+    {{ graficohumedad | safe }}
+</div>
+<div class="container mt-5">
+    {{ graficotemperatura | safe }}
+</div>
+
+<div class="container mt-5">
+    <a href="{% url 'home' %}"><img src="{% static 'img/volver_boton.png' %}" alt="Logo" style="width: 96px;"></a>
+</div>
+{% endblock %}

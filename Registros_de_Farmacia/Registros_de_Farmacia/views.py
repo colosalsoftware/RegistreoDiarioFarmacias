@@ -1,7 +1,7 @@
-from django.shortcuts import render
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from humedad.models import RegistroHumedad
 from temperatura.models import RegistroTemperatura
+from Acta.models import ActaRecepcion, RecepcionMedicamento
 import plotly.express as px
 from plotly.offline import plot
 import pandas as pd
@@ -9,9 +9,6 @@ import pandas as pd
 # Create your views here.
 def home(request):
     return render(request,'home.html')
-
-
-
 
 def registros_humedad_temperatura(request):
     # Obtener los registros de humedad
@@ -26,20 +23,20 @@ def registros_humedad_temperatura(request):
         data_frameh,
         x='fecha',
         y='valor_humedad',
-        title='registros de Humedad Históricos',  # Cambia el título
+        title='Registros de Humedad Históricos',  # Cambia el título
         labels={'fecha': 'Fecha', 'valor_humedad': 'Valor de Humedad'},  # Etiquetas personalizadas
     )
 
     # Personalizar el estilo del gráfico
-    figh.update_traces(line=dict(color='blue', width=4))  # Cambia el color de la línea y el grosor
+    figh.update_traces(line=dict(color='#99FFFF', width=2))  # Cambia el color de la línea y el grosor
 
     # Confighurar el diseño del gráfico
     figh.update_layout(
-        plot_bgcolor='black',  # Fondo negro
-        paper_bgcolor='black',  # Fondo del papel negro
+        plot_bgcolor='#666666',  # Fondo negro
+        paper_bgcolor='#666666',  # Fondo del papel negro
         font=dict(color='white'),  # Texto en blanco
         title=dict(
-            font=dict(size=20),  # Tamaño del título
+            font=dict(size=26),  # Tamaño del título
             x=0.5  # Centrar el título
         ),
         xaxis_title='Fecha',  # Título del eje X
@@ -70,15 +67,15 @@ def registros_humedad_temperatura(request):
     )
 
     # Personalizar el estilo del gráfico
-    figt.update_traces(line=dict(color='blue', width=4))  # Cambia el color de la línea y el grosor
+    figt.update_traces(line=dict(color='#61FF61', width=2))  # Cambia el color de la línea y el grosor
 
     # Configturar el diseño del gráfico
     figt.update_layout(
-        plot_bgcolor='black',  # Fondo negro
-        paper_bgcolor='black',  # Fondo del papel negro
+        plot_bgcolor='#666666',  # Fondo negro
+        paper_bgcolor='#666666',  # Fondo del papel negro
         font=dict(color='white'),  # Texto en blanco
         title=dict(
-            font=dict(size=20),  # Tamaño del título
+            font=dict(size=26),  # Tamaño del título
             x=0.5  # Centrar el título
         ),
         xaxis_title='Fecha',  # Título del eje X
@@ -91,4 +88,13 @@ def registros_humedad_temperatura(request):
     divt = figt.to_html()
 
 
-    return render(request, 'registros_humedad.html', {'graficohumedad': divh,'graficotemperatura': divt})
+    return render(request, 'registros_humedad_temperatura.html', {'graficohumedad': divh,'graficotemperatura': divt})
+
+def lista_actas(request):
+    actas = ActaRecepcion.objects.all().order_by('-fecha')
+    return render(request, 'lista_actas.html', {'actas': actas})
+
+def detalle_acta(request, acta_id):
+    acta = get_object_or_404(ActaRecepcion, pk=acta_id)
+    recepciones = acta.recepcion_medicamentos.all()
+    return render(request, 'detalle_acta.html', {'acta': acta, 'recepciones': recepciones})

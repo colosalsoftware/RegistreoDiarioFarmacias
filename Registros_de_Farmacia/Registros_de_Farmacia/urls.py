@@ -25,4 +25,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('',views.home,name='home'),
     path('HumedadTemperatura/',views.registros_humedad_temperatura,name='registros'),
+    path('actas/', views.lista_actas, name='lista_actas'),
+    path('actas/<int:acta_id>/', views.detalle_acta, name='detalle_acta'),
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
