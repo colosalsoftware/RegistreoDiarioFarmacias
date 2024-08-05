@@ -2,16 +2,25 @@
 {% load static %}
 	
 {% block content %}
-<div class="container " style="margin-top: 100px;">
+<div class="container py-5" style="margin-top: 100px;">
     <div class="row justify-content-center">
-        <div class="col-md-6 text-center" style="padding-right: 5%; padding-left: 10%;">
-            
-            <a href="{% url 'registros' %}" ><img src="{% static 'img/humedad_temperatura.png' %}" style="width: 100%;"></a>
+        <div class="col-md-6 mb-4 d-flex justify-content-center">
+            <a href="{% url 'registros' %}" class="btn-image">
+                <img src="{% static 'img/humedad_temperatura.png' %}" class="img-fluid" style="border-radius: 20px; transition: transform 0.3s, box-shadow 0.3s;">
+            </a>
         </div>
-        <div class="col-md-6 text-center" style="padding-right: 10%; padding-left: 5%;">
-            <a href="{% url 'lista_actas' %}" ><img src="{% static 'img/actas_recepcion.png' %}" style="width: 100%;"></a>
+        <div class="col-md-6 mb-4 d-flex justify-content-center">
+            <a href="{% url 'lista_actas' %}" class="btn-image">
+                <img src="{% static 'img/actas_recepcion.png' %}" class="img-fluid" style="border-radius: 20px; transition: transform 0.3s, box-shadow 0.3s;">
+            </a>
         </div>
     </div>
-    <br><br>
 </div>
+
+<style>
+    .btn-image img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+</style>
 {% endblock %}

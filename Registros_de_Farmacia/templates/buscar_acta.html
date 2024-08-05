@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+	
+{% block content %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchInput = document.getElementById('search-medicamento');
+        const medicamentoSelect = document.getElementById('medicamento_id');
+
+        searchInput.addEventListener('keyup', function() {
+            let filter = searchInput.value.toLowerCase();
+            let options = medicamentoSelect.options;
+            for (let i = 0; i < options.length; i++) {
+                let txtValue = options[i].textContent || options[i].innerText;
+                options[i].style.display = (txtValue.toLowerCase().indexOf(filter) > -1) ? "" : "none";
+            }
+        });
+    });
+</script>
+<div class="container py-5" style="border-radius: 20px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-top: 50px;">
+    <h1 class="text-center mb-4" style="font-weight: 600;">Buscar Acta de Recepción</h1>
+
+    <form method="get" class="p-4 shadow-sm rounded" >
+        <div class="form-group">
+            <label for="search-medicamento" class="font-weight-bold">Buscar Medicamento:</label>
+            <input type="text" class="form-control" id="search-medicamento" placeholder="Escribe el nombre del medicamento">
+        </div>
+        <div class="form-group">
+            <label for="medicamento_id" class="font-weight-bold">Medicamento:</label>
+            <select name="medicamento_id" id="medicamento_id" class="form-control">
+                <option value="">--- Seleccione Medicamento ---</option>
+                {% for medicamento in medicamentos %}
+                    <option value="{{ medicamento.id }}">{{ medicamento.nombre_Medicamento }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="lote" class="font-weight-bold">Lote:</label>
+            <input type="text" class="form-control" name="lote" id="lote" placeholder="Escribe el lote">
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg" style="border-radius: 30px;">Buscar</button>
+        </div>
+    </form>
+
+    {% if actas %}
+        <h2 class="text-center mt-5">Resultados</h2>
+        <div class="table-responsive">
+            <table id="tablaActas" class="table table-hover table-bordered" style="font-size: 14px; border-radius: 10px; border-collapse: separate; border-spacing: 0 10px;">
+                <thead class="thead-dark">
+                    <tr style="background-color: #00003c; color: white;">
+                        <th scope="col" style="padding: 10px;">Fecha</th>
+                        <th scope="col" style="padding: 10px;">Depósito</th>
+                        <th scope="col" class="text-center" style="padding: 10px;">Ver</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for acta in actas %}
+                    <tr style="background-color: #f8f9fa; border-radius: 10px;">
+                        <td style="padding: 12px 20px;">{{ acta.fecha }}</td>
+                        <td style="padding: 12px 20px;">{{ acta.deposito }}</td>
+                        <td class="text-center" style="padding: 12px 20px;">
+                            <a href="{% url 'detalle_acta' acta.id %}">
+                                <img src="{% static 'img/ver.png' %}" alt="Ver" style="width: 30px;">
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% elif actas is not none %}
+        <div class="alert alert-warning text-center mt-5">
+            No se encontraron actas.
+        </div>
+    {% endif %}
+</div>
+
+<div class="container text-center mt-5">
+    <a href="{% url 'home' %}">
+        <img src="{% static 'img/volver_boton.png' %}" alt="Volver" style="width: 96px; transition: transform 0.3s;">
+    </a>
+</div>
+
+{% endblock %}

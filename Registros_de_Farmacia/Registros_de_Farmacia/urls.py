@@ -27,4 +27,9 @@ urlpatterns = [
     path('HumedadTemperatura/',views.registros_humedad_temperatura,name='registros'),
     path('actas/', views.lista_actas, name='lista_actas'),
     path('actas/<int:acta_id>/', views.detalle_acta, name='detalle_acta'),
+    path('actas/buscar_acta/', views.buscar_acta, name='buscar_acta'),
+    path('medicamento-autocomplete/', views.MedicamentoAutocomplete.as_view(), name='medicamento-autocomplete'),
+    path('laboratorio-autocomplete/', views.LaboratorioAutocomplete.as_view(), name='laboratorio-autocomplete'),
+    path('deposito-autocomplete/', views.DepositoAutocomplete.as_view(), name='deposito-autocomplete')
+
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
